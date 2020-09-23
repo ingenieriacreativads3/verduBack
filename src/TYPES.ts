@@ -28,16 +28,35 @@ const TYPES = {
   Company: Symbol.for('Company'),
   Session: Symbol.for('Session'),
   Sale: Symbol.for('Sale'),
-
-  SaleInterface: Symbol.for('SaleInterface'),
-  SessionInterface: Symbol.for('SessionInterface'),
+  Provider: Symbol.for('Provider'),
+  Payment: Symbol.for('Payment'),
+  
+  LoginBuilderable: Symbol.for('LoginBuilderable'),
+  UserBuilderable: Symbol.for('UserBuilderable'),
+  BankBuilderable: Symbol.for('BankBuilderable'),
+  CompanyBuilderable: Symbol.for('CompanyBuilderable'),
   SessionBuilderable: Symbol.for('SessionBuilderable'),
+  SaleBuilderable: Symbol.for('SaleBuilderable'),
+  ProviderBuilderable: Symbol.for('ProviderBuilderable'),
+  PaymentBuilderable: Symbol.for('PaymentBuilderable'),
 
-  BankServiceableDomain: Symbol.for('BankServiceableDomain'),
+  LoginInterface: Symbol.for('LoginInterface'),
+  UserInterface: Symbol.for('UserInterface'),
+  BankInterface: Symbol.for('BankInterface'),
+  CompanyInterface: Symbol.for('CompanyInterface'),
+  SessionInterface: Symbol.for('SessionInterface'),
+  SaleInterface: Symbol.for('SaleInterface'),
+  ProviderInterface: Symbol.for('ProviderInterface'),
+  PaymentInterface: Symbol.for('PaymentInterface'),
+
+  LoginServiceableDomain: Symbol.for('LoginServiceableDomain'),
   UserServiceableDomain: Symbol.for('UserServiceableDomain'),
+  BankServiceableDomain: Symbol.for('BankServiceableDomain'),
   CompanyServiceableDomain: Symbol.for('CompanyServiceableDomain'),
   SessionServiceableDomain: Symbol.for('SessionServiceableDomain'),
   SaleServiceableDomain: Symbol.for('SaleServiceableDomain'),
+  ProviderServiceableDomain: Symbol.for('ProviderServiceableDomain'),
+  PaymentServiceableDomain: Symbol.for('PaymentServiceableDomain'),
   
 };
 
