@@ -161,22 +161,14 @@ export default class Controller implements Routeable, Patheable {
 		var objData: ObjInterface = request.body;
 		const id = request.user._id
 
-		await this.service.save(objData, model, id)
-			.then((res: DomainResponseable) => {
-				if(res && res.result !== undefined) {
-					this.responserService.res = {
-						result: res.result,
-						message: res.message,
-						status: res.status,
-						error: res.error
-					}
-				} else {
-					this.responserService.res = { result: 'Nop', message: 'La capa superior contesto undefined', error: '', status: 500 }
-				}
-			})
-			.catch((err: any) => {
-				this.responserService.res = { result: err.result, message: err.message, error: err.error, status: err.status }
-			})
+		this.service.save(objData, model, id)
+
+		this.responserService.res = {
+			result: 'Consulta exitosa',
+			message: 'Se realizo el alta de la venta',
+			status: 200,
+			error: ''
+		}
 			
 		if(this.responserService.res.status) {
 			response.status(this.responserService.res.status).send(this.responserService.res)
