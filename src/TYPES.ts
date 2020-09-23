@@ -27,7 +27,9 @@ const TYPES = {
   Bank: Symbol.for('Bank'),
   Company: Symbol.for('Company'),
   Session: Symbol.for('Session'),
+  Sale: Symbol.for('Sale'),
 
+  SaleInterface: Symbol.for('SaleInterface'),
   SessionInterface: Symbol.for('SessionInterface'),
   SessionBuilderable: Symbol.for('SessionBuilderable'),
 
@@ -35,6 +37,7 @@ const TYPES = {
   UserServiceableDomain: Symbol.for('UserServiceableDomain'),
   CompanyServiceableDomain: Symbol.for('CompanyServiceableDomain'),
   SessionServiceableDomain: Symbol.for('SessionServiceableDomain'),
+  SaleServiceableDomain: Symbol.for('SaleServiceableDomain'),
   
 };
 

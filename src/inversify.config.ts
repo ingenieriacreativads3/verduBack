@@ -34,8 +34,10 @@ import BankServiceableDomain from './Domain/Entities/Bank/Ports/Serviceable'
 import UserServiceableDomain from './Domain/Entities/User/Ports/Serviceable'
 import CompanyServiceableDomain from './Domain/Entities/Company/Ports/Serviceable'
 import SessionServiceableDomain from './Domain/Entities/Session/Ports/Serviceable'
+import SaleServiceableDomain from './Domain/Entities/Sale/Ports/Serviceable'
 
 import SessionInterface from './Domain/Entities/Session/Interface'
+import SaleInterface from './Domain/Entities/Sale/Interface'
 
 import SessionBuilderable from './Domain/Entities/Session/Ports/Builderable'
 
@@ -61,17 +63,20 @@ import BankModel from './Domain/Entities/Bank/Model'
 import UserModel from './Domain/Entities/User/Model'
 import CompanyModel from './Domain/Entities/Company/Model'
 import SessionModel from './Domain/Entities/Session/Model'
+import SaleModel from './Domain/Entities/Sale/Model'
 
 import BankServiceDomain from './Domain/Entities/Bank/Controller'
 import UserServiceDomain from './Domain/Entities/User/Controller'
 import CompanyServiceDomain from './Domain/Entities/Company/Controller'
 import SessionServiceDomain from './Domain/Entities/Session/Controller'
+import SaleServiceDomain from './Domain/Entities/Sale/Controller'
 
 import LoginDto from './Presentation/Controllers/Authentication/Dto'
 import UserDto from './Domain/Entities/User/Dto'
 import BankDto from './Domain/Entities/Bank/Dto'
 import CompanyDto from './Domain/Entities/Company/Dto'
 import SessionDto from './Domain/Entities/Session/Dto'
+import SaleDto from './Domain/Entities/Sale/Dto'
 
 import SessionBuilder from './Domain/Entities/Session/Builder'
 
@@ -80,6 +85,7 @@ import BankServicePresentation from './Presentation/Controllers/Bank/Controller'
 import UserServicePresentation from './Presentation/Controllers/User/Controller'
 import CompanyServicePresentation from './Presentation/Controllers/Company/Controller'
 import SessionServicePresentation from './Presentation/Controllers/Session/Controller'
+import SaleServicePresentation from './Presentation/Controllers/Sale/Controller'
 
 var container = new Container()
 container.bind<Appeable>(TYPES.Appeable).to(App)
@@ -105,14 +111,17 @@ container.bind<Schemable>(TYPES.Schemable).toConstantValue(new UserModel).whenTa
 container.bind<Schemable>(TYPES.Schemable).toConstantValue(new BankModel).whenTargetNamed(TYPES.Bank)
 container.bind<Schemable>(TYPES.Schemable).toConstantValue(new CompanyModel).whenTargetNamed(TYPES.Company)
 container.bind<Schemable>(TYPES.Schemable).toConstantValue(new SessionModel).whenTargetNamed(TYPES.Session)
+container.bind<Schemable>(TYPES.Schemable).toConstantValue(new SaleModel).whenTargetNamed(TYPES.Sale)
 
 container.bind<Validable>(TYPES.Validable).to(LoginDto).whenTargetNamed(TYPES.Login)
 container.bind<Validable>(TYPES.Validable).to(UserDto).whenTargetNamed(TYPES.User)
 container.bind<Validable>(TYPES.Validable).to(BankDto).whenTargetNamed(TYPES.Bank)
 container.bind<Validable>(TYPES.Validable).to(CompanyDto).whenTargetNamed(TYPES.Company)
 container.bind<Validable>(TYPES.Validable).to(SessionDto).whenTargetNamed(TYPES.Session)
+container.bind<Validable>(TYPES.Validable).to(SaleDto).whenTargetNamed(TYPES.Sale)
 
 container.bind<SessionInterface>(TYPES.SessionInterface).toConstantValue(new SessionDto)
+container.bind<SaleInterface>(TYPES.SaleInterface).toConstantValue(new SaleDto)
 
 container .bind<SessionBuilderable>(TYPES.SessionBuilderable).to(SessionBuilder)
 
@@ -120,12 +129,14 @@ container.bind<UserServiceableDomain>(TYPES.UserServiceableDomain).to(UserServic
 container.bind<BankServiceableDomain>(TYPES.BankServiceableDomain).to(BankServiceDomain)
 container.bind<CompanyServiceableDomain>(TYPES.CompanyServiceableDomain).to(CompanyServiceDomain)
 container.bind<SessionServiceableDomain>(TYPES.SessionServiceableDomain).to(SessionServiceDomain)
+container.bind<SaleServiceableDomain>(TYPES.SaleServiceableDomain).to(SaleServiceDomain)
 
 container.bind<Routeable>(TYPES.Routeable).to(AuthenticationServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(UserServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(BankServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(CompanyServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(SessionServicePresentation)
+container.bind<Routeable>(TYPES.Routeable).to(SaleServicePresentation)
 
 
 export default container
