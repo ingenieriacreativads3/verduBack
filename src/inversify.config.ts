@@ -163,6 +163,7 @@ container.bind<Routeable>(TYPES.Routeable).to(BankServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(CompanyServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(SessionServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(SaleServicePresentation)
+container.bind<Routeable>(TYPES.Routeable).to(ProviderServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(PaymentServicePresentation)
 
 
