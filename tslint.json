@@ -1,0 +1,44 @@
+{
+	"defaultSeverity": "error",
+	"extends": [
+		"tslint:recommended",
+		"tslint-config-airbnb"
+	],
+	"jsRules": {
+		"no-unused-expression": true
+	},
+	"rules": {
+		"max-line-length": [
+			true,
+			130
+		],
+		"prefer-template": false,
+		"indent": [
+			2, "tab"
+		],
+		"react/jsx-indent": [
+			2, "tab"
+		],
+		"react/jsx-indent-props": [
+			2, "tab"
+		],
+		"interface-name": [
+			true,
+			"never-prefix"
+		],
+		"import-name": false,
+		"no-console": false,
+		"object-literal-sort-keys": false,
+		"object-shorthand": [
+			"never"
+		],
+		"ordered-imports": [
+			true,
+			{
+				"import-sources-order": "any",
+				"named-imports-order": "case-insensitive"
+			}
+		]
+	},
+	"rulesDirectory": []
+}
