@@ -23,8 +23,8 @@ export default class ConnectionProvider implements ConnectionableProvider {
 			if (!connection) {
 				
 				console.log('Creó conexión con base de datos: ' + database);
-				const uri: string = CONFIG.MONGO_URL + database;
-				// const uri: string = CONFIG.CLUSTER + '/' + database + '?retryWrites=true&w=majority';
+				// const uri: string = CONFIG.MONGO_URL + database;
+				const uri: string = CONFIG.CLUSTER + '/' + database + '?retryWrites=true&w=majority';
 				
 				try {
 					
