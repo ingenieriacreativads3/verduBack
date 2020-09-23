@@ -34,8 +34,12 @@ export default class App implements Appeable {
 	}
 
 	public listen(): void {
-		const port = 303
-		this.app.listen(port, function() {
+		let port: string = process.env.PORT;
+		if (port === undefined || port === null) {
+			port = '303';
+		}
+
+		this.app.listen(parseInt(port, 10), function() {
 				console.log("Server is running in port " + port)
 		});
 	}
