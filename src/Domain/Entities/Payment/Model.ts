@@ -15,7 +15,7 @@ export default class ENTITY_SCHEMA extends Schemable implements Nameable {
 
 		super({
 
-			provicer: {
+			provider: {
 				ref: 'provider',
 				typed: 'id',
 				type: Schema.Types.ObjectId,

@@ -184,6 +184,7 @@ export default class Controller implements Routeable, Patheable {
 		var model: Model<Document, {}> = await this.connectionProvider.getModel(request.database, this.schema.name, this.schema)
 
 		var objData: ObjInterface = request.body;
+		console.log(objData)
 		const id = request.user._id
 
 		await this.service.save(objData, model, id)
