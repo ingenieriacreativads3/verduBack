@@ -112,16 +112,12 @@ export default class Controller implements Serviceable {
 				$oid: idUser
 			}
 		}
-
-		
 		
 		return new Promise<Responseable>( async (resolve, reject) => {
 			await this.getAll(userModel, {}, match, {}, {}, 1, 0)
 				.then(async (userRes: Responseable) => {
 					if(userRes && userRes.result !== undefined) {
 						
-						console.log(userRes)
-
 						sale.turn = userRes.result.email
 
 						await this.saveableService.save(sale, model, model, idUser)

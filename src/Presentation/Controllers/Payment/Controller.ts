@@ -36,6 +36,8 @@ export default class Controller implements Routeable, Patheable {
 	@inject(TYPES.Validable) @named(TYPES.Payment) private dto: Validable
 	@inject(TYPES.Schemable) @named(TYPES.Payment) private schema: Schemable
 	@inject(TYPES.PaymentServiceableDomain) private service: Serviceable
+	
+	@inject(TYPES.Schemable) @named(TYPES.User) private userSchema: Schemable
 
 	constructor() {
 		this.initializeRoutes(this.validationProvider);
@@ -182,12 +184,13 @@ export default class Controller implements Routeable, Patheable {
 	private saveObj = async (request: RequestWithUser, response: Response, next: NextFunction) => {
 		
 		var model: Model<Document, {}> = await this.connectionProvider.getModel(request.database, this.schema.name, this.schema)
+		var userModel: Model<Document, {}> = await this.connectionProvider.getModel(request.database, this.userSchema.name, this.userSchema)
 
 		var objData: ObjInterface = request.body;
 		console.log(objData)
 		const id = request.user._id
 
-		await this.service.save(objData, model, id)
+		await this.service.save(objData, model, userModel, id)
 			.then((res: DomainResponseable) => {
 				if(res && res.result !== undefined) {
 					this.responserService.res = {

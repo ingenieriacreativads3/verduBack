@@ -10,5 +10,6 @@ export default class EntityDto extends DtoUtil implements Interface {
 
 	public provider: Schema.Types.ObjectId
 	public totalPrice: number
+	public turn: string
 
 }
