@@ -19,6 +19,10 @@ export default class ENTITY_SCHEMA extends Schemable implements Nameable {
 				type: Number,
 				typed: 'number'
 			},
+			turn: {
+				type: String,
+				typed: 'string'
+			},
 			entity: {
 				type: String,
 				typed: entity

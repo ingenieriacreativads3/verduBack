@@ -9,6 +9,7 @@ export default interface Saveable {
 	save(
 		obj: Registrable,
 		model: Model<Document, {}>,
+		userModel: Model<Document, {}>,
 		idUser: string
 	): Promise<Responseable>
 

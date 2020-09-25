@@ -12,6 +12,8 @@ import Saveable from '../Util/Ports/Saveable';
 import GeteableById from '../Util/Ports/GeteableById'
 import Updateable from '../Util/Ports/Updateable'
 
+import Interface from './Interface'
+
 @injectable()
 export default class Controller implements Serviceable {
 
@@ -97,39 +99,56 @@ export default class Controller implements Serviceable {
 	}
 		
 	public async save(
-		data: Registrable,
+		data: any,
 		model: Model<Document, {}>,
+		userModel: Model<Document, {}>,
 		idUser: string
 	): Promise<Responseable> {
 
+		let sale: Interface = data
+
+		var match = {
+			_id: {
+				$oid: sale.creationUser
+			}
+		}
+
+		
+		
 		return new Promise<Responseable>( async (resolve, reject) => {
-			await this.saveableService.save(data, model, model, idUser)
-				.then((res: Responseable) => {
-					if(res && res.result !== undefined) {
-						this.responserService = {
-							result: res.result,
-							message: res.message,
-							error: res.error,
-							status: res.status
-						}
-						resolve(this.responserService)
+			await this.getAll(userModel, {}, match, {}, {}, 1, 0)
+				.then(async (userRes: Responseable) => {
+					if(userRes && userRes.result !== undefined) {
+						
+						sale.turn = userRes.result.email
+
+						await this.saveableService.save(sale, model, model, idUser)
+							.then((res: Responseable) => {
+								if(res && res.result !== undefined) {
+									this.responserService = {
+										result: res.result,
+										message: res.message,
+										error: res.error,
+										status: res.status
+									}
+									resolve(this.responserService)
+								} else {
+									this.responserService = { result: 'Nop', message: 'La capa superior contesto undefined', error: '', status: 500 }
+									reject(this.responserService)
+								}
+							}).catch((err: Responseable) => {
+								this.responserService = {result: err.result,message: err.message,error: err.error,status: err.status }
+								reject(this.responserService)
+							})
 					} else {
-						this.responserService = {
-							result: 'Nop',
-							message: 'La capa superior contesto undefined',
-							error: '',
-							status: 500
-						}
+						this.responserService = { result: 'Nop', message: 'La capa superior contesto undefined', error: '', status: 500 }
+						reject(this.responserService)
 					}
 				}).catch((err: Responseable) => {
-					this.responserService = {
-						result: err.result,
-						message: err.message,
-						error: err.error,
-						status: err.status
-					}
+					this.responserService = { result: err.result, message: err.message, error: err.error, status: err.status }
+					reject(this.responserService)
 				})
-			reject(this.responserService)
+			
 		})
 	}
 

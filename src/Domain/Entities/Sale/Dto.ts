@@ -10,5 +10,6 @@ export default class EntityDto extends DtoUtil implements Interface {
 
 	@IsDefined()
 	public totalPrice: number
+	public turn: string
 
 }
