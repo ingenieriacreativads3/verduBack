@@ -10,6 +10,7 @@ export default interface Saveable {
 		obj: Registrable,
 		model: Model<Document, {}>,
 		userModel: Model<Document, {}>,
+		providerModel: Model<Document, {}>,
 		idUser: string
 	): Promise<Responseable>
 

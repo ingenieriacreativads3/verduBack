@@ -28,6 +28,10 @@ export default class ENTITY_SCHEMA extends Schemable implements Nameable {
 				type: String,
 				typed: 'string'
 			},
+			who: {
+				type: String,
+				typed: 'string'
+			},
 			entity: { // este json no se toca
 				type: String,
 				typed: entity

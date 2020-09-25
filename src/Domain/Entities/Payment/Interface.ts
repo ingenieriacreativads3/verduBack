@@ -6,5 +6,6 @@ export default interface Interface extends InterfaceUtil {
 	provider: Schema.Types.ObjectId
 	totalPrice: number
 	turn: string
+	who: string
 	
 }

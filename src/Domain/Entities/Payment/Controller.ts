@@ -102,6 +102,7 @@ export default class Controller implements Serviceable {
 		data: any,
 		model: Model<Document, {}>,
 		userModel: Model<Document, {}>,
+		providerModel: Model<Document, {}>,
 		idUser: string
 	): Promise<Responseable> {
 
@@ -120,16 +121,37 @@ export default class Controller implements Serviceable {
 						
 						sale.turn = userRes.result.email
 
-						await this.saveableService.save(data, model, model, idUser)
-							.then((res: Responseable) => {
-								if(res && res.result !== undefined) {
-									this.responserService = {
-										result: res.result,
-										message: res.message,
-										error: res.error,
-										status: res.status
-									}
-									resolve(this.responserService)
+						let providerMatch = {
+							_id: {
+								$oid: sale.provider
+							}
+						}
+
+						await this.getAll(providerModel, {}, providerMatch, {}, {}, 1, 0)
+							.then(async (providerRes: Responseable) => {
+								if(providerRes && providerRes.result !== undefined) {
+
+									sale.who = providerRes.result.name
+
+									await this.saveableService.save(sale, model, model, idUser)
+										.then((res: Responseable) => {
+											if(res && res.result !== undefined) {
+												this.responserService = {
+													result: res.result,
+													message: res.message,
+													error: res.error,
+													status: res.status
+												}
+												resolve(this.responserService)
+											} else {
+												this.responserService = { result: 'Nop', message: 'La capa superior contesto undefined', error: '', status: 500 }
+												reject(this.responserService)
+											}
+										}).catch((err: Responseable) => {
+											this.responserService = { result: err.result, message: err.message, error: err.error, status: err.status }
+											reject(this.responserService)
+										})
+									
 								} else {
 									this.responserService = { result: 'Nop', message: 'La capa superior contesto undefined', error: '', status: 500 }
 									reject(this.responserService)
@@ -138,6 +160,8 @@ export default class Controller implements Serviceable {
 								this.responserService = { result: err.result, message: err.message, error: err.error, status: err.status }
 								reject(this.responserService)
 							})
+
+						
 						
 					} else {
 						this.responserService = { result: 'Nop', message: 'La capa superior contesto undefined', error: '', status: 500 }
