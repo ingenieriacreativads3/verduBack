@@ -109,7 +109,7 @@ export default class Controller implements Serviceable {
 
 		var match = {
 			_id: {
-				$oid: sale.creationUser
+				$oid: idUser
 			}
 		}
 
@@ -120,6 +120,8 @@ export default class Controller implements Serviceable {
 				.then(async (userRes: Responseable) => {
 					if(userRes && userRes.result !== undefined) {
 						
+						console.log(userRes)
+
 						sale.turn = userRes.result.email
 
 						await this.saveableService.save(sale, model, model, idUser)

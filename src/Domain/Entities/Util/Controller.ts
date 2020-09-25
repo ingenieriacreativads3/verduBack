@@ -87,6 +87,18 @@ export default class Controller implements Controlleable {
 				})
 			})
 
+			// {
+			// 	from: 'user',
+			// 	localField: 'creationUser',
+			// 	foreignField: '_id',
+			// 	as: 'creationUser'
+			// }
+
+			// {
+			// 	path: '$creationUser',
+			// 	preserveNullAndEmptyArrays: true
+			// }
+
 			if (Object.keys(project).length > 0) {
 
 				var relations = new TablesRelations()
