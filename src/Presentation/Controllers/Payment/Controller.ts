@@ -78,6 +78,9 @@ export default class Controller implements Routeable, Patheable {
 		const id: string = request.params.id;
 		const idUser: string = request.user._id;
 
+		// console.log('getbyid')
+		// console.log(request.params.id)
+
 		await this.service.getById(id, model)
 			.then( async (res: DomainResponseable) => {
 				if(res && res.result !== undefined) {
@@ -133,7 +136,7 @@ export default class Controller implements Routeable, Patheable {
 		}
 
 		if (!error) {
-			await this.service.getAll(model, project, match, sort, group, limit, skip)
+			await this.service.getAll(model, project, match, {creationDate: -1}, group, limit, skip)
 				.then((res: DomainResponseable) => {
 					if(res && res.result !== undefined) {
 						if(res.result) {
@@ -189,7 +192,8 @@ export default class Controller implements Routeable, Patheable {
 		var providerModel: Model<Document, {}> = await this.connectionProvider.getModel(request.database, this.providerSchema.name, this.providerSchema)
 
 		var objData: ObjInterface = request.body;
-		console.log(objData)
+		// console.log('save')
+		// console.log(objData)
 		const id = request.user._id
 
 		await this.service.save(objData, model, userModel, providerModel, id)

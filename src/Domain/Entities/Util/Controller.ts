@@ -282,6 +282,8 @@ export default class Controller implements Controlleable {
 		userModel: Model<Document, {}>
 	): Promise<Responseable> {
 
+		// console.log(id)
+
 		return new Promise<Responseable>(async (resolve, reject) => {
 			if (Types.ObjectId.isValid(id)) {
 				await model.findById(id)
