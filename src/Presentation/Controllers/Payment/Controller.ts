@@ -136,7 +136,7 @@ export default class Controller implements Routeable, Patheable {
 		}
 
 		if (!error) {
-			await this.service.getAll(model, project, match, {creationDate: -1}, group, limit, skip)
+			await this.service.getAll(model, project, match, sort, group, limit, skip)
 				.then((res: DomainResponseable) => {
 					if(res && res.result !== undefined) {
 						if(res.result) {
