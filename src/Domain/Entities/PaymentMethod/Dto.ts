@@ -9,8 +9,7 @@ import Interface from './Interface'
 export default class EntityDto extends DtoUtil implements Interface {
 
 	@IsDefined()
-	public totalPrice: number
-	public turn: string
-	public paymentMethod: Schema.Types.ObjectId
+	@IsString()
+	public name: string
 
 }

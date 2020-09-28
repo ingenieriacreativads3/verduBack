@@ -30,6 +30,7 @@ const TYPES = {
   Sale: Symbol.for('Sale'),
   Provider: Symbol.for('Provider'),
   Payment: Symbol.for('Payment'),
+  PaymentMethod: Symbol.for('PaymentMethod'),
   
   LoginBuilderable: Symbol.for('LoginBuilderable'),
   UserBuilderable: Symbol.for('UserBuilderable'),
@@ -39,6 +40,7 @@ const TYPES = {
   SaleBuilderable: Symbol.for('SaleBuilderable'),
   ProviderBuilderable: Symbol.for('ProviderBuilderable'),
   PaymentBuilderable: Symbol.for('PaymentBuilderable'),
+  PaymentMethodBuilderable: Symbol.for('PaymentMethodBuilderable'),
 
   LoginInterface: Symbol.for('LoginInterface'),
   UserInterface: Symbol.for('UserInterface'),
@@ -48,6 +50,7 @@ const TYPES = {
   SaleInterface: Symbol.for('SaleInterface'),
   ProviderInterface: Symbol.for('ProviderInterface'),
   PaymentInterface: Symbol.for('PaymentInterface'),
+  PaymentMethodInterface: Symbol.for('PaymentMethodInterface'),
 
   LoginServiceableDomain: Symbol.for('LoginServiceableDomain'),
   UserServiceableDomain: Symbol.for('UserServiceableDomain'),
@@ -57,6 +60,7 @@ const TYPES = {
   SaleServiceableDomain: Symbol.for('SaleServiceableDomain'),
   ProviderServiceableDomain: Symbol.for('ProviderServiceableDomain'),
   PaymentServiceableDomain: Symbol.for('PaymentServiceableDomain'),
+  PaymentMethodServiceableDomain: Symbol.for('PaymentMethodServiceableDomain'),
   
 };
 

@@ -37,6 +37,7 @@ import SessionServiceableDomain from './Domain/Entities/Session/Ports/Serviceabl
 import SaleServiceableDomain from './Domain/Entities/Sale/Ports/Serviceable'
 import ProviderServiceableDomain from './Domain/Entities/Provider/Ports/Serviceable'
 import PaymentServiceableDomain from './Domain/Entities/Payment/Ports/Serviceable'
+import PaymentMethodServiceableDomain from './Domain/Entities/PaymentMethod/Ports/Serviceable'
 
 import UserInterface from './Domain/Entities/User/Interface'
 import BankInterface from './Domain/Entities/Bank/Interface'
@@ -45,6 +46,7 @@ import SessionInterface from './Domain/Entities/Session/Interface'
 import SaleInterface from './Domain/Entities/Sale/Interface'
 import ProviderInterface from './Domain/Entities/Provider/Interface'
 import PaymentInterface from './Domain/Entities/Payment/Interface'
+import PaymentMethodInterface from './Domain/Entities/PaymentMethod/Interface'
 
 import SessionBuilderable from './Domain/Entities/Session/Ports/Builderable'
 
@@ -73,6 +75,7 @@ import SessionModel from './Domain/Entities/Session/Model'
 import SaleModel from './Domain/Entities/Sale/Model'
 import ProviderModel from './Domain/Entities/Provider/Model'
 import PaymentModel from './Domain/Entities/Payment/Model'
+import PaymentMethodModel from './Domain/Entities/PaymentMethod/Model'
 
 import UserServiceDomain from './Domain/Entities/User/Controller'
 import BankServiceDomain from './Domain/Entities/Bank/Controller'
@@ -81,6 +84,7 @@ import SessionServiceDomain from './Domain/Entities/Session/Controller'
 import SaleServiceDomain from './Domain/Entities/Sale/Controller'
 import ProviderServiceDomain from './Domain/Entities/Provider/Controller'
 import PaymentServiceDomain from './Domain/Entities/Payment/Controller'
+import PaymentMethodServiceDomain from './Domain/Entities/PaymentMethod/Controller'
 
 import LoginDto from './Presentation/Controllers/Authentication/Dto'
 import UserDto from './Domain/Entities/User/Dto'
@@ -90,6 +94,7 @@ import SessionDto from './Domain/Entities/Session/Dto'
 import SaleDto from './Domain/Entities/Sale/Dto'
 import ProviderDto from './Domain/Entities/Provider/Dto'
 import PaymentDto from './Domain/Entities/Payment/Dto'
+import PaymentMethodDto from './Domain/Entities/PaymentMethod/Dto'
 
 import SessionBuilder from './Domain/Entities/Session/Builder'
 
@@ -101,6 +106,7 @@ import SessionServicePresentation from './Presentation/Controllers/Session/Contr
 import SaleServicePresentation from './Presentation/Controllers/Sale/Controller'
 import ProviderServicePresentation from './Presentation/Controllers/Provider/Controller'
 import PaymentServicePresentation from './Presentation/Controllers/Payment/Controller'
+import PaymentMethodServicePresentation from './Presentation/Controllers/PaymentMethod/Controller'
 
 var container = new Container()
 container.bind<Appeable>(TYPES.Appeable).to(App)
@@ -129,6 +135,7 @@ container.bind<Schemable>(TYPES.Schemable).toConstantValue(new SessionModel).whe
 container.bind<Schemable>(TYPES.Schemable).toConstantValue(new SaleModel).whenTargetNamed(TYPES.Sale)
 container.bind<Schemable>(TYPES.Schemable).toConstantValue(new ProviderModel).whenTargetNamed(TYPES.Provider)
 container.bind<Schemable>(TYPES.Schemable).toConstantValue(new PaymentModel).whenTargetNamed(TYPES.Payment)
+container.bind<Schemable>(TYPES.Schemable).toConstantValue(new PaymentMethodModel).whenTargetNamed(TYPES.PaymentMethod)
 
 container.bind<Validable>(TYPES.Validable).to(LoginDto).whenTargetNamed(TYPES.Login)
 container.bind<Validable>(TYPES.Validable).to(UserDto).whenTargetNamed(TYPES.User)
@@ -138,6 +145,7 @@ container.bind<Validable>(TYPES.Validable).to(SessionDto).whenTargetNamed(TYPES.
 container.bind<Validable>(TYPES.Validable).to(SaleDto).whenTargetNamed(TYPES.Sale)
 container.bind<Validable>(TYPES.Validable).to(ProviderDto).whenTargetNamed(TYPES.Provider)
 container.bind<Validable>(TYPES.Validable).to(PaymentDto).whenTargetNamed(TYPES.Payment)
+container.bind<Validable>(TYPES.Validable).to(PaymentMethodDto).whenTargetNamed(TYPES.PaymentMethod)
 
 container.bind<UserInterface>(TYPES.UserInterface).toConstantValue(new UserDto)
 container.bind<BankInterface>(TYPES.BankInterface).toConstantValue(new BankDto)
@@ -146,6 +154,7 @@ container.bind<SessionInterface>(TYPES.SessionInterface).toConstantValue(new Ses
 container.bind<SaleInterface>(TYPES.SaleInterface).toConstantValue(new SaleDto)
 container.bind<ProviderInterface>(TYPES.ProviderInterface).toConstantValue(new ProviderDto)
 container.bind<PaymentInterface>(TYPES.PaymentInterface).toConstantValue(new PaymentDto)
+container.bind<PaymentMethodInterface>(TYPES.PaymentMethodInterface).toConstantValue(new PaymentMethodDto)
 
 container .bind<SessionBuilderable>(TYPES.SessionBuilderable).to(SessionBuilder)
 
@@ -156,6 +165,7 @@ container.bind<SessionServiceableDomain>(TYPES.SessionServiceableDomain).to(Sess
 container.bind<SaleServiceableDomain>(TYPES.SaleServiceableDomain).to(SaleServiceDomain)
 container.bind<ProviderServiceableDomain>(TYPES.ProviderServiceableDomain).to(ProviderServiceDomain)
 container.bind<PaymentServiceableDomain>(TYPES.PaymentServiceableDomain).to(PaymentServiceDomain)
+container.bind<PaymentMethodServiceableDomain>(TYPES.PaymentMethodServiceableDomain).to(PaymentMethodServiceDomain)
 
 container.bind<Routeable>(TYPES.Routeable).to(AuthenticationServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(UserServicePresentation)
@@ -165,6 +175,7 @@ container.bind<Routeable>(TYPES.Routeable).to(SessionServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(SaleServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(ProviderServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(PaymentServicePresentation)
+container.bind<Routeable>(TYPES.Routeable).to(PaymentMethodServicePresentation)
 
 
 export default container
