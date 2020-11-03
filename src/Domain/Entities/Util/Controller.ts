@@ -21,6 +21,29 @@ export default class Controller implements Controlleable {
 		this.responserService = new Responser()
 	}
 
+	public async aggregate(
+		model: Model<Document, {}>,
+		aggregation: any[],
+	): Promise<Responseable> {
+
+		return new Promise<Responseable>( async (resolve, reject) => {
+
+			console.log(model)
+			console.log(aggregation)
+
+			await model.aggregate(aggregation)
+				.then(async (result: any) => {
+					console.log('method')
+					console.log(result)
+					this.responserService = { result: result, message: 'Consulta exitosa', error: '', status: 200 }
+					resolve(this.responserService)
+				}).catch((err: any) => {
+					this.responserService = { result: 'Nop', message: 'No se pudo realizar la consulta1', error: err, status: 500 }
+					reject(this.responserService)
+				});
+		});
+	}
+
 	public async getAll(
 		model: Model<Document, {}>,
 		project: {} = {},
@@ -28,7 +51,8 @@ export default class Controller implements Controlleable {
 		sort: {} = {},
 		group: {} = {},
 		limit: number = 0,
-		skip: number = 0
+		skip: number = 0,
+		aggregation?: any[]
 	): Promise<Responseable> {
 
 		return new Promise<Responseable>( async (resolve, reject) => {
@@ -242,13 +266,17 @@ export default class Controller implements Controlleable {
 
 			if (queryAggregate.length === 0) queryAggregate.push({ $limit: 10 });
 
+			if(aggregation !== undefined) {
+				queryAggregate = aggregation
+			}
+
 			if(model !== undefined) {
 				await model.aggregate(queryAggregate)
 					.then(async (result: any) => {
 
 						// model.populate([], {})
 
-
+						// console.log(result)
 						
 						if(result.length === 0) {
 							if(limit === 1) {

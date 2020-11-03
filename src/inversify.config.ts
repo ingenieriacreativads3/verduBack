@@ -108,6 +108,21 @@ import ProviderServicePresentation from './Presentation/Controllers/Provider/Con
 import PaymentServicePresentation from './Presentation/Controllers/Payment/Controller'
 import PaymentMethodServicePresentation from './Presentation/Controllers/PaymentMethod/Controller'
 
+import EmployeeServiceableDomain from './Domain/Entities/Employee/Ports/Serviceable'
+import EmployeeInterface from './Domain/Entities/Employee/Interface'
+import EmployeeModel from './Domain/Entities/Employee/Model'
+import EmployeeServiceDomain from './Domain/Entities/Employee/Controller'
+import EmployeeDto from './Domain/Entities/Employee/Dto'
+import EmployeeServicePresentation from './Presentation/Controllers/Employee/Controller'
+
+import ScheduleServiceableDomain from './Domain/Entities/Schedule/Ports/Serviceable'
+import ScheduleInterface from './Domain/Entities/Schedule/Interface'
+import ScheduleModel from './Domain/Entities/Schedule/Model'
+import ScheduleServiceDomain from './Domain/Entities/Schedule/Controller'
+import ScheduleDto from './Domain/Entities/Schedule/Dto'
+import ScheduleServicePresentation from './Presentation/Controllers/Schedule/Controller'
+
+
 var container = new Container()
 container.bind<Appeable>(TYPES.Appeable).to(App)
 container.bind<Responseable>(TYPES.Responseable).to(Responser)
@@ -176,6 +191,18 @@ container.bind<Routeable>(TYPES.Routeable).to(SaleServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(ProviderServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(PaymentServicePresentation)
 container.bind<Routeable>(TYPES.Routeable).to(PaymentMethodServicePresentation)
+
+container.bind<Schemable>(TYPES.Schemable).toConstantValue(new EmployeeModel).whenTargetNamed(TYPES.Employee)
+container.bind<Validable>(TYPES.Validable).to(EmployeeDto).whenTargetNamed(TYPES.Employee)
+container.bind<EmployeeInterface>(TYPES.EmployeeInterface).toConstantValue(new EmployeeDto)
+container.bind<EmployeeServiceableDomain>(TYPES.EmployeeServiceableDomain).to(EmployeeServiceDomain)
+container.bind<Routeable>(TYPES.Routeable).to(EmployeeServicePresentation)
+
+container.bind<Schemable>(TYPES.Schemable).toConstantValue(new ScheduleModel).whenTargetNamed(TYPES.Schedule)
+container.bind<Validable>(TYPES.Validable).to(ScheduleDto).whenTargetNamed(TYPES.Schedule)
+container.bind<ScheduleInterface>(TYPES.ScheduleInterface).toConstantValue(new ScheduleDto)
+container.bind<ScheduleServiceableDomain>(TYPES.ScheduleServiceableDomain).to(ScheduleServiceDomain)
+container.bind<Routeable>(TYPES.Routeable).to(ScheduleServicePresentation)
 
 
 export default container

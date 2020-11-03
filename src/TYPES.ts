@@ -61,6 +61,16 @@ const TYPES = {
   ProviderServiceableDomain: Symbol.for('ProviderServiceableDomain'),
   PaymentServiceableDomain: Symbol.for('PaymentServiceableDomain'),
   PaymentMethodServiceableDomain: Symbol.for('PaymentMethodServiceableDomain'),
+
+  Employee: Symbol.for('Employee'),
+  EmployeeBuilderable: Symbol.for('EmployeeBuilderable'),
+  EmployeeInterface: Symbol.for('EmployeeInterface'),
+  EmployeeServiceableDomain: Symbol.for('EmployeeServiceableDomain'),
+
+  Schedule: Symbol.for('Schedule'),
+  ScheduleBuilderable: Symbol.for('ScheduleBuilderable'),
+  ScheduleInterface: Symbol.for('ScheduleInterface'),
+  ScheduleServiceableDomain: Symbol.for('ScheduleServiceableDomain'),
   
 };
 

@@ -20,28 +20,22 @@ import Validateable from '../../../Domain/Middleware/Ports/Validateable'
 import Schemable from '../../../Domain/Entities/Util/Ports/Schemable'
 import Validable from '../../../Domain/Entities/Util/Ports/Validable'
 
-import ObjInterface from '../../../Domain/Entities/Sale/Interface'
-import Serviceable from '../../../Domain/Entities/Sale/Ports/Serviceable'
-
-import GeteableAll from './../../../Domain/Entities/Util/Ports/GeteableAll'
+import ObjInterface from '../../../Domain/Entities/Schedule/Interface'
+import Serviceable from '../../../Domain/Entities/Schedule/Ports/Serviceable'
 
 @injectable()
 export default class Controller implements Routeable, Patheable {
 
 	public router: Router = container.get<Router>(TYPES.Router)
-	public path: string = '/sale'
+	public path: string = '/schedule'
 	private validationProvider: Validateable = container.get<Validateable>(TYPES.Validateable)
 	private authMid: Authenticateable = container.get<Authenticateable>(TYPES.Authenticateable)
 	@inject(TYPES.ConnectionableProvider) private connectionProvider: ConnectionableProvider
 	@inject(TYPES.Responseable) private responserService: Responseable
 	
-	@inject(TYPES.Validable) @named(TYPES.Sale) private dto: Validable
-	@inject(TYPES.Schemable) @named(TYPES.Sale) private schema: Schemable
-	@inject(TYPES.SaleServiceableDomain) private service: Serviceable
-
-	@inject(TYPES.Schemable) @named(TYPES.User) private userSchema: Schemable
-
-	@inject(TYPES.GeteableAll) private geteableAllService: GeteableAll
+	@inject(TYPES.Validable) @named(TYPES.Schedule) private dto: Validable
+	@inject(TYPES.Schemable) @named(TYPES.Schedule) private schema: Schemable
+	@inject(TYPES.ScheduleServiceableDomain) private service: Serviceable
 
 	constructor() {
 		this.initializeRoutes(this.validationProvider);
@@ -51,182 +45,11 @@ export default class Controller implements Routeable, Patheable {
 
 		this.router
 			.get(this.path, [this.authMid.authenticate], this.getAllObjs)
-			.get(`${this.path}/report`, [], this.getReport)
 			.get(`${this.path}/schema`, [this.authMid.authenticate], this.getSchema)
 			.get(`${this.path}/:id`, [this.authMid.authenticate], this.getObjById)
 			.post(this.path, [this.authMid.authenticate, validationProvider.validate(this.dto)], this.saveObj)
 			.put(`${this.path}/:id`, [this.authMid.authenticate, validationProvider.validate(this.dto, true)], this.updateObj)
 			.delete(`${this.path}/:id`, [this.authMid.authenticate], this.deleteObj);
-	}
-
-	private getReport = async (request: RequestWithUser, response: Response, next: NextFunction) => {
-
-		const model: Model<Document, {}> = await this.connectionProvider.getModel(
-			'verdu',
-			this.schema.name,
-			this.schema
-		)
-
-		let error;
-		let project = {};
-		let match = {};
-		let sort = {};
-		let group = {};
-		let limit = 0;
-		let skip = 0;
-
-		let aggregation = [
-			{
-				"$lookup": {
-					"localField": "creationUser",
-					"foreignField": "_id",
-					"as": "creationUser",
-					"from": "user"
-				}
-			},
-			{
-				"$unwind": {
-					"path": "$creationUser",
-					"preserveNullAndEmptyArrays": true
-				}
-			},
-			{
-				"$addFields": {
-					"creationDate": {
-						"$cond": {
-							"if": {
-								"$eq": [
-									{
-										"$type": "$creationDate"
-									},
-									"date"
-								]
-							},
-							"then": "$creationDate",
-							"else": null
-						}
-					}
-				}
-			},
-			{
-				"$addFields": {
-					"__alias_0": {
-						"year": {
-							"$year": "$creationDate"
-						},
-						"month": {
-							"$subtract": [
-								{
-									"$month": "$creationDate"
-								},
-								1
-							]
-						},
-						"date": {
-							"$dayOfMonth": "$creationDate"
-						}
-					}
-				}
-			},
-			{
-				"$group": {
-					"_id": {
-						"__alias_0": "$__alias_0",
-						"__alias_1": "$creationUser.email"
-					},
-					"__alias_2": {
-						"$sum": "$totalPrice"
-					}
-				}
-			},
-			{
-				"$project": {
-					"_id": 0,
-					"__alias_0": "$_id.__alias_0",
-					"__alias_1": "$_id.__alias_1",
-					"__alias_2": 1
-				}
-			},
-			{
-				"$project": {
-					"group": "$__alias_0",
-					"value": "$__alias_2",
-					"dynamicColumns": "$__alias_1",
-					"_id": 0
-				}
-			},
-			{
-				"$addFields": {
-					"__agg_sum": {
-						"$sum": [
-							"$value"
-						]
-					}
-				}
-			},
-			{
-				"$sort": {
-					"__agg_sum": -1
-				}
-			},
-			{
-				"$project": {
-					"__agg_sum": 0
-				}
-			},
-			{
-				"$limit": 50000
-			}
-		]
-
-		if (!error) {
-			await this.geteableAllService.getAll(model, project, match, sort, group, limit, skip, aggregation)
-				.then((res: DomainResponseable) => {
-					if(res && res.result !== undefined) {
-						if(res.result) {
-							this.responserService.res = {
-								result: res.result,
-								message: res.message,
-								status: res.status,
-								error: res.error
-							}
-						} else {
-							this.responserService.res = {
-								result: [],
-								message: 'No existe el res.result',
-								status: 500,
-								error: 'obj.getAllObjs()'
-							}
-						}
-					} else {
-						this.responserService.res = {
-							result: [],
-							message: 'No existe el res',
-							status: 500,
-							error: 'obj.getAllObjs()'
-						}
-					}
-				}).catch((err: DomainResponseable) => {
-					this.responserService.res = {
-						result: err.result,
-						message: err.message,
-						status: err.status,
-						error: err.error
-					}
-				})
-		} else {
-			this.responserService.res = {
-				result: [],
-				message: 'No se puede realizar la consulta',
-				status: 428,
-				error: 'Error en los parametros enviados'
-			}
-		}
-		if(this.responserService.res.status) {
-			response.status(this.responserService.res.status).send(this.responserService.res)
-		} else {
-			response.status(500).send(this.responserService.res)
-		}
 	}
 
 	private getSchema = async (request: RequestWithUser, response: Response, next: NextFunction) => {
@@ -359,12 +182,11 @@ export default class Controller implements Routeable, Patheable {
 	private saveObj = async (request: RequestWithUser, response: Response, next: NextFunction) => {
 		
 		var model: Model<Document, {}> = await this.connectionProvider.getModel(request.database, this.schema.name, this.schema)
-		var userModel: Model<Document, {}> = await this.connectionProvider.getModel(request.database, this.userSchema.name, this.userSchema)
 
 		var objData: ObjInterface = request.body;
 		const id = request.user._id
 
-		await this.service.save(objData, model, userModel, id)
+		await this.service.save(objData, model, id)
 			.then((res: DomainResponseable) => {
 				if(res && res.result !== undefined) {
 					this.responserService.res = {

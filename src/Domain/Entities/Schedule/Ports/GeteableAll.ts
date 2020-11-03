@@ -10,6 +10,6 @@ export default interface GeteableAll {
 		sort: {},
 		group: {},
 		limit: number,
-		skip: number,
+		skip: number
 	): Promise<Responseable>
 }

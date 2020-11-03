@@ -1,15 +1,15 @@
 import { Model, Document } from 'mongoose'
 
+import Registrable from './Registrable'
+
 import Responseable from '../../Util/Ports/Responseable'
 
-export default interface GeteableAll {
-	getAll(
+export default interface Saveable {
+
+	save(
+		obj: Registrable,
 		model: Model<Document, {}>,
-		project: {},
-		match: {},
-		sort: {},
-		group: {},
-		limit: number,
-		skip: number,
+		idUser: string
 	): Promise<Responseable>
+
 }

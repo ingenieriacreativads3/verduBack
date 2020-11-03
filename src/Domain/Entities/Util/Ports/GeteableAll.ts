@@ -11,7 +11,8 @@ export default interface GeteableAll extends GeteableById {
 		sort: {},
 		group: {},
 		limit: number,
-		skip: number
+		skip: number,
+		aggregation?: any[]
 	): Promise<Responseable>
 
 }
