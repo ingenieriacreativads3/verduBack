@@ -9,5 +9,8 @@ import Interface from './Interface'
 export default class EntityDto extends DtoUtil implements Interface {
 
 	public name: string
+	public cost: number
+	public price: number
+	public item: Schema.Types.ObjectId
 
 }

@@ -122,6 +122,13 @@ import ScheduleServiceDomain from './Domain/Entities/Schedule/Controller'
 import ScheduleDto from './Domain/Entities/Schedule/Dto'
 import ScheduleServicePresentation from './Presentation/Controllers/Schedule/Controller'
 
+import ItemServiceableDomain from './Domain/Entities/Item/Ports/Serviceable'
+import ItemInterface from './Domain/Entities/Item/Interface'
+import ItemModel from './Domain/Entities/Item/Model'
+import ItemServiceDomain from './Domain/Entities/Item/Controller'
+import ItemDto from './Domain/Entities/Item/Dto'
+import ItemServicePresentation from './Presentation/Controllers/Item/Controller'
+
 
 var container = new Container()
 container.bind<Appeable>(TYPES.Appeable).to(App)
@@ -203,6 +210,12 @@ container.bind<Validable>(TYPES.Validable).to(ScheduleDto).whenTargetNamed(TYPES
 container.bind<ScheduleInterface>(TYPES.ScheduleInterface).toConstantValue(new ScheduleDto)
 container.bind<ScheduleServiceableDomain>(TYPES.ScheduleServiceableDomain).to(ScheduleServiceDomain)
 container.bind<Routeable>(TYPES.Routeable).to(ScheduleServicePresentation)
+
+container.bind<Schemable>(TYPES.Schemable).toConstantValue(new ItemModel).whenTargetNamed(TYPES.Item)
+container.bind<Validable>(TYPES.Validable).to(ItemDto).whenTargetNamed(TYPES.Item)
+container.bind<ItemInterface>(TYPES.ItemInterface).toConstantValue(new ItemDto)
+container.bind<ItemServiceableDomain>(TYPES.ItemServiceableDomain).to(ItemServiceDomain)
+container.bind<Routeable>(TYPES.Routeable).to(ItemServicePresentation)
 
 
 export default container

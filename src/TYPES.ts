@@ -71,6 +71,11 @@ const TYPES = {
   ScheduleBuilderable: Symbol.for('ScheduleBuilderable'),
   ScheduleInterface: Symbol.for('ScheduleInterface'),
   ScheduleServiceableDomain: Symbol.for('ScheduleServiceableDomain'),
+
+  Item: Symbol.for('Item'),
+  ItemBuilderable: Symbol.for('ItemBuilderable'),
+  ItemInterface: Symbol.for('ItemInterface'),
+  ItemServiceableDomain: Symbol.for('ItemServiceableDomain'),
   
 };
 

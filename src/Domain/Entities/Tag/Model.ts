@@ -11,13 +11,26 @@ export default class ENTITY_SCHEMA extends Schemable implements Nameable {
 
 	constructor() {
 
-		let entity: string = 'item'
+		let entity: string = 'bank'
 
 		super({
 
 			name: {
 				type: String,
 				typed: 'string'
+			},
+			price: {
+				type: Number,
+				typed: 'number'
+			},
+			cost: {
+				type: Number,
+				typed: 'number'
+			},
+			item: {
+				ref: 'item',
+				typed: 'id',
+				type: Schema.Types.ObjectId,
 			},
 			entity: { // este json no se toca
 				type: String,

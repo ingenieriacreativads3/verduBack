@@ -36,7 +36,7 @@ export default class App implements Appeable {
 	public listen(): void {
 		let port: string = process.env.PORT;
 		if (port === undefined || port === null) {
-			port = '303';
+			port = '3030';
 		}
 
 		this.app.listen(parseInt(port, 10), function() {
