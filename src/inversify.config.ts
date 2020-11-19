@@ -129,6 +129,13 @@ import ItemServiceDomain from './Domain/Entities/Item/Controller'
 import ItemDto from './Domain/Entities/Item/Dto'
 import ItemServicePresentation from './Presentation/Controllers/Item/Controller'
 
+import TagServiceableDomain from './Domain/Entities/Tag/Ports/Serviceable'
+import TagInterface from './Domain/Entities/Tag/Interface'
+import TagModel from './Domain/Entities/Tag/Model'
+import TagServiceDomain from './Domain/Entities/Tag/Controller'
+import TagDto from './Domain/Entities/Tag/Dto'
+import TagServicePresentation from './Presentation/Controllers/Tag/Controller'
+
 
 var container = new Container()
 container.bind<Appeable>(TYPES.Appeable).to(App)
@@ -216,6 +223,12 @@ container.bind<Validable>(TYPES.Validable).to(ItemDto).whenTargetNamed(TYPES.Ite
 container.bind<ItemInterface>(TYPES.ItemInterface).toConstantValue(new ItemDto)
 container.bind<ItemServiceableDomain>(TYPES.ItemServiceableDomain).to(ItemServiceDomain)
 container.bind<Routeable>(TYPES.Routeable).to(ItemServicePresentation)
+
+container.bind<Schemable>(TYPES.Schemable).toConstantValue(new TagModel).whenTargetNamed(TYPES.Tag)
+container.bind<Validable>(TYPES.Validable).to(TagDto).whenTargetNamed(TYPES.Tag)
+container.bind<TagInterface>(TYPES.TagInterface).toConstantValue(new TagDto)
+container.bind<TagServiceableDomain>(TYPES.TagServiceableDomain).to(TagServiceDomain)
+container.bind<Routeable>(TYPES.Routeable).to(TagServicePresentation)
 
 
 export default container

@@ -76,6 +76,11 @@ const TYPES = {
   ItemBuilderable: Symbol.for('ItemBuilderable'),
   ItemInterface: Symbol.for('ItemInterface'),
   ItemServiceableDomain: Symbol.for('ItemServiceableDomain'),
+
+  Tag: Symbol.for('Tag'),
+  TagBuilderable: Symbol.for('TagBuilderable'),
+  TagInterface: Symbol.for('TagInterface'),
+  TagServiceableDomain: Symbol.for('TagServiceableDomain'),
   
 };
 
