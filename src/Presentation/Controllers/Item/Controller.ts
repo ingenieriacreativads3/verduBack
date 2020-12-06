@@ -114,9 +114,7 @@ export default class Controller implements Routeable, Patheable {
 		let skip = 0;
 
 		let recivedProject: any = request.query.project
-		let recivedMatch: any = {
-			operationType : { $ne: "D" }
-		}
+		let recivedMatch: any = request.query.match
 		let recivedSort: any = request.query.sort
 		let recivedGroup: any = request.query.group
 		let recivedLimit: any = request.query.limit
