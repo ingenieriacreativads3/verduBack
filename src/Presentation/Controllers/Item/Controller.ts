@@ -100,7 +100,7 @@ export default class Controller implements Routeable, Patheable {
 	private getAllObjs = async (request: RequestWithUser, response: Response, next: NextFunction) => {
 
 		const model: Model<Document, {}> = await this.connectionProvider.getModel(
-			'verdu',
+			request.database,
 			this.schema.name,
 			this.schema
 		)
