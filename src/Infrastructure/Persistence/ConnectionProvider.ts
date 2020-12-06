@@ -57,7 +57,7 @@ export default class ConnectionProvider implements ConnectionableProvider {
 	}
 	
 	public async getModel(
-		database: string,
+		database: string, 
 		name: string,
 		schema: Schema<any>
 	): Promise<Model<Document, {}>> {
