@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "src/server.ts",
+	"engines" : { "node" : "10.19.0" },
 	"dependencies": {
 		"@afipsdk/afip.js": "^0.6.3",
 		"@types/bcrypt": "^3.0.0",
