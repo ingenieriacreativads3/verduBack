@@ -23,10 +23,19 @@ export default class Controller implements Serviceable {
 
 	public async update(
 		id: string,
-		data: {},
+		data: Registrable,
 		model: Model<Document, {}>,
 		idUser: string,
 	): Promise<Responseable> {
+
+		if(data !== undefined) {
+			if(data.end !== undefined) {
+				data.endNumber = Date.parse(data.end.toString())
+			}
+			if(data.start !== undefined) {
+				data.startNumber = Date.parse(data.start.toString())
+			}
+		}
 
 		return new Promise<Responseable>( async (resolve, reject) => {
 			await this.updateableService.update(id, data, model, model, idUser)
@@ -101,6 +110,15 @@ export default class Controller implements Serviceable {
 		model: Model<Document, {}>,
 		idUser: string
 	): Promise<Responseable> {
+
+		if(data !== undefined) {
+			if(data.end !== undefined) {
+				data.endNumber = Date.parse(data.end.toString())
+			}
+			if(data.start !== undefined) {
+				data.startNumber = Date.parse(data.start.toString())
+			}
+		}
 
 		return new Promise<Responseable>( async (resolve, reject) => {
 			await this.saveableService.save(data, model, model, idUser)

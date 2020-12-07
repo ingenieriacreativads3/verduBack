@@ -11,5 +11,7 @@ export default class EntityDto extends DtoUtil implements Interface {
 	public employee: Schema.Types.ObjectId
 	public start: Date
 	public end: Date
+	public startNumber: Number
+	public endNumber: Number
 
 }

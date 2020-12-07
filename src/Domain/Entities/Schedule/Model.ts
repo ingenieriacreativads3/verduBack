@@ -28,6 +28,14 @@ export default class ENTITY_SCHEMA extends Schemable implements Nameable {
 				type: Date,
 				typed: 'date'
 			},
+			startNumber: {
+				type: Number,
+				typed: 'number'
+			},
+			endNumber: {
+				type: Number,
+				typed: 'number'
+			},
 			entity: { // este json no se toca
 				type: String,
 				typed: entity

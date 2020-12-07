@@ -6,5 +6,7 @@ export default interface Interface extends InterfaceUtil {
 	employee: Schema.Types.ObjectId
 	start: Date
 	end: Date
+	startNumber: Number
+	endNumber: Number
 	
 }

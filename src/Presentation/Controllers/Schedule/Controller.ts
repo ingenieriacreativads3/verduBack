@@ -44,7 +44,7 @@ export default class Controller implements Routeable, Patheable {
 	initializeRoutes(validationProvider: Validateable) {
 
 		this.router
-			.get(this.path, [this.authMid.authenticate], this.getAllObjs)
+			.get(this.path, [], this.getAllObjs)
 			.get(`${this.path}/schema`, [this.authMid.authenticate], this.getSchema)
 			.get(`${this.path}/:id`, [this.authMid.authenticate], this.getObjById)
 			.post(this.path, [this.authMid.authenticate, validationProvider.validate(this.dto)], this.saveObj)
@@ -100,7 +100,8 @@ export default class Controller implements Routeable, Patheable {
 	private getAllObjs = async (request: RequestWithUser, response: Response, next: NextFunction) => {
 
 		const model: Model<Document, {}> = await this.connectionProvider.getModel(
-			request.database,
+			// request.database,
+			'verdu',
 			this.schema.name,
 			this.schema
 		)
